@@ -37,7 +37,9 @@ jobs:
       - name: Upload Chrome/Edge package
         uses: actions/upload-artifact@v7
         with:
-          name: web-party-chrome-edge
+          # Upload the extension zip as-is instead of wrapping it in another zip.
+          # The artifact takes the file name (WebParty-chrome-vX.Y.Z.zip).
+          archive: false
           path: dist/WebParty-chrome-v*.zip
           if-no-files-found: error
           retention-days: 14
