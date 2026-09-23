@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Party</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="booting" aria-busy="true">
+  <header class="masthead">
+    <a class="brand" href="#" aria-label="Web Party, inicio"><span class="brand-icon" aria-hidden="true">wp</span> web party<span class="brand-dot">.</span></a>
+    <span class="eyebrow">DIRECT / P2P</span>
+  </header>
+
+  <div id="boot-screen" class="boot-screen" role="status" aria-live="polite">
+    <span class="boot-mark" aria-hidden="true">wp</span>
+    <span>Web Party</span>
+  </div>
+
+  <main>
+    <div id="loading" class="notice" role="status" hidden>Recuperando sua sess&atilde;o...</div>
+    <div id="error" class="notice error" role="alert" hidden></div>
+    <div id="message" class="notice" role="status" hidden></div>
+    <section id="clipboard-card" class="card clipboard-card" hidden>
+      <span class="step-label">NA SUA &Aacute;REA DE TRANSFER&Ecirc;NCIA</span>
+      <h2 id="clipboard-title"></h2>
+      <p id="clipboard-hint" class="hint"></p>
+      <button id="clipboard-action" class="primary"></button>
+    </section>
+
+    <section id="home" hidden>
+      <div class="hero">
+        <span class="eyebrow accent">LETs GET PARTY!</span>
+        <h1>Assista conteúdos de forma sincronizada</h1>
+        <div class="orbit" aria-hidden="true"><span></span><i></i><span></span></div>
+      </div>
+      <label for="name">Como seus amigos te chamam?</label>
+      <input id="name" maxlength="40" autocomplete="nickname" placeholder="Seu nome" required>
+      <div class="home-actions">
+        <button id="create" class="primary">Criar uma party <span aria-hidden="true">&rarr;</span></button>
+        <button id="show-join" class="secondary" aria-expanded="false" aria-controls="join-form">Entrar em party existente</button>
+      </div>
+      <form id="join-form" class="card" hidden>
+        <span class="step-label">01 / RECEBER CONVITE</span>
+        <label for="join-code">Cole o link ou o c&oacute;digo que o host enviou</label>
+        <textarea id="join-code" rows="3" maxlength="140000" spellcheck="false" autocomplete="off" placeholder="WP1..."></textarea>
+        <button id="join" class="primary" type="submit">Preparar minha resposta <span aria-hidden="true">&rarr;</span></button>
+        <p class="hint">Depois, envie sua resposta ao host para ele concluir a conex&atilde;o.</p>
+      </form>
+      <details class="network">
+        <summary>Como a conex&atilde;o funciona</summary>
+        <p>Sem cadastro, backend ou servidor de relay. Para conectar sem sinaliza&ccedil;&atilde;o central, voc&ecirc;s trocam um convite e uma resposta pelo chat que preferirem.</p>
+        <label class="check"><input id="stun" type="checkbox" checked> Usar STUN para descobrir meu endere&ccedil;o de rede</label>
+        <p>O STUN do Google recebe seu IP, mas n&atilde;o transporta a party. Desative para tentar sem nenhum servidor auxiliar, geralmente na mesma rede. Algumas redes n&atilde;o permitem P2P direto.</p>
+      </details>
+    </section>
+
+    <section id="party" hidden>
+      <div class="party-title"><div><span id="role" class="eyebrow accent"></span><h1>Sua sala<span class="accent">.</span></h1></div><span id="connection" class="badge">Aguardando</span></div>
+      <div class="card media-card">
+        <div class="media-icon" aria-hidden="true">&#9654;</div>
+        <div class="media-info"><span class="eyebrow">NA TELA</span><h2 id="video-title">Escolha um v&iacute;deo</h2><p id="video-status" class="hint"></p></div>
+      </div>
+      <div class="tab-actions">
+        <button id="select-tab" class="text-button">Usar esta aba</button>
+        <button id="open-host" class="text-button" hidden>Abrir v&iacute;deo do host &nearr;</button>
+      </div>
+      <p id="player-notice" class="notice" role="status" hidden></p>
+      <div id="speed" class="speed" role="group" aria-labelledby="speed-label">
+        <span id="speed-label" class="eyebrow">VELOCIDADE</span>
+        <div class="speed-options">
+          <button data-rate="1">1x</button>
+          <button data-rate="1.25">1.25x</button>
+          <button data-rate="1.5">1.5x</button>
+          <button data-rate="2">2x</button>
+        </div>
+        <span id="speed-hint" class="hint"></span>
+      </div>
+
+      <section id="host-tools" hidden>
+        <div id="invitation" class="card" hidden>
+          <span class="step-label">01 / CONVIDAR</span>
+          <h2>Chame algu&eacute;m para a sala.</h2>
+          <p class="hint">Envie este link por um chat privado. Ao clicar, a pessoa abre o v&iacute;deo e entra. Ele conecta uma pessoa e vale por 30 minutos.</p>
+          <label class="sr-only" for="offer-code">Link de convite</label>
+          <textarea id="offer-code" rows="2" readonly spellcheck="false"></textarea>
+          <button id="copy-offer" class="secondary">Copiar link</button>
+          <div class="divider"></div>
+          <form id="accept-form">
+            <span class="step-label">02 / CONECTAR</span>
+            <p class="hint">Quando o convidado devolver a resposta, copie a mensagem e abra a extens&atilde;o: ela reconhece a resposta sozinha.</p>
+            <label for="answer-code">Ou cole a resposta aqui</label>
+            <textarea id="answer-code" rows="2" maxlength="140000" spellcheck="false" autocomplete="off" placeholder="WP1..."></textarea>
+            <button id="accept" class="primary" type="submit">Conectar convidado <span aria-hidden="true">&rarr;</span></button>
+          </form>
+        </div>
+        <button id="new-invite" class="secondary" hidden>+ Convidar outra pessoa</button>
+        <button id="replace-invite" class="text-button" hidden>Descartar convite e gerar outro</button>
+      </section>
+
+      <section id="guest-answer" class="card" hidden>
+        <span class="step-label">02 / DEVOLVER RESPOSTA</span>
+        <h2>S&oacute; falta o host confirmar.</h2>
+        <p class="hint">Cole esta resposta no chat com o host. Quando ele abrir a extens&atilde;o com ela copiada, a conex&atilde;o acontece.</p>
+        <label class="sr-only" for="response-code">Sua resposta para o host</label>
+        <textarea id="response-code" rows="2" readonly spellcheck="false"></textarea>
+        <button id="copy-answer" class="primary">Copiar minha resposta</button>
+        <p class="hint">Pode fechar o popup enquanto espera. Mantenha o navegador aberto.</p>
+      </section>
+
+      <section class="people-section">
+        <div class="section-label"><h2>Na party</h2><span id="people-count" class="eyebrow"></span></div>
+        <ul id="people" class="people"></ul>
+      </section>
+      <div class="party-footer"><p class="hint">Todos podem dar play e pausar. S&oacute; o host troca de v&iacute;deo.<br>O popup pode ficar fechado.</p><button id="leave" class="text-button danger">Sair da party</button></div>
+    </section>
+
+    <div id="busy" class="notice" role="status" hidden></div>
+    <div id="toast" class="toast" role="status" hidden></div>
+  </main>
+  <footer class="footer"><span class="live-dot" aria-hidden="true"></span> S&oacute; os controles viajam. O v&iacute;deo &eacute; de cada um.</footer>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

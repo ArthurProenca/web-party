@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Web Party",
+  "version": "0.1.0",
+  "description": "YouTube e Crunchyroll juntos. Sincronizacao direta entre amigos, sem backend.",
+  "minimum_chrome_version": "116",
+  "permissions": ["offscreen", "storage", "activeTab", "clipboardRead", "clipboardWrite"],
+  "host_permissions": [
+    "https://*.youtube.com/*",
+    "https://*.youtube-nocookie.com/*",
+    "https://*.crunchyroll.com/*"
+  ],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "Web Party" },
+  "content_scripts": [{
+    "matches": [
+      "https://*.youtube.com/*",
+      "https://*.youtube-nocookie.com/*",
+      "https://*.crunchyroll.com/*"
+    ],
+    "js": ["content.js"],
+    "all_frames": true,
+    "run_at": "document_idle"
+  }, {
+    "matches": [
+      "https://*.youtube.com/*",
+      "https://*.youtube-nocookie.com/*",
+      "https://*.crunchyroll.com/*"
+    ],
+    "js": ["invite.js"],
+    "all_frames": false,
+    "run_at": "document_start"
+  }],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'"
+  }
+}
